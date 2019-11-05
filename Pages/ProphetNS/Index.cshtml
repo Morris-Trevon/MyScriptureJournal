@@ -1,0 +1,127 @@
+﻿@page "{id:int?}"
+@model MyScriptureJournal.Pages.ProphetNS.IndexModel
+
+@{
+    ViewData["Title"] = "Prophets";
+}
+
+<h1>Prophets</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+        <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Dispensation</th>
+            <th>Priesthood</th>
+            <th>References</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ProphetData.prophet)
+        {
+            string selectedRow = "";
+            if (item.ProphetID == Model.ProphetID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstMidName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DispDate)
+                </td>
+                <td>
+                    @if (item.priestHoodOffice != null)
+                    {
+                        @item.priestHoodOffice.priesthoodOffice
+                    }
+                </td>
+                <td>
+                    @{
+                        foreach (var reference in item.dispensationLinks)
+                        {
+                            @reference.References.ReferenceID @:  @reference.References.Title <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Index" asp-route-id="@item.ProphetID">Select</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.ProphetID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ProphetID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ProphetID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.ProphetData.references != null)
+{
+    <h3>Doctrines taught by Selected Prophet</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Department</th>
+        </tr>
+
+        @foreach (var item in Model.ProphetData.references)
+        {
+            string selectedRow = "";
+            if (item.ReferenceID == Model.ReferenceID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    <a asp-page="./Index" asp-route-referenceID="@item.ReferenceID">Select</a>
+                </td>
+                <td>
+                    @item.ReferenceID
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.City.Name
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+@if (Model.ProphetData.notes != null)
+{
+    <h3>
+        Journals Assigned to Selected Reference
+    </h3>
+    <table class="table">
+        <tr>
+            <th>Journal Name</th>
+            <th>Canon</th>
+        </tr>
+        @foreach (var item in Model.ProphetData.notes)
+        {
+            <tr>
+                <td>
+                    @item.Journal.JournalName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Canon)
+                </td>
+            </tr>
+        }
+    </table>
+}

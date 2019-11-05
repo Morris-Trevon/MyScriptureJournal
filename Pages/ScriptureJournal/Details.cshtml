@@ -1,0 +1,55 @@
+﻿@page
+@model MyScriptureJournal.Pages.ScriptureJournal.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Journal</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journal.JournalName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journal.JournalName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journal.CreationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Journal.CreationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Journal.Notes)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Canon</th>
+                </tr>
+                @foreach (var item in Model.Journal.Notes)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reference.ChapterAndVerse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reference.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reference.SpiritualNotes)
+                </td>
+            </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Journal.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

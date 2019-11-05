@@ -1,0 +1,30 @@
+﻿@page
+@model MyScriptureJournal.Pages.AboutModel
+@{
+    ViewData["Title"] = "Gospel Journal View";
+}
+
+<h1>About</h1>
+
+<table>
+    <tr>
+        <th>
+            Creation Date
+        </th>
+        <th>
+            Journals
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Journals)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @item.JournalCount
+            </td>
+        </tr>
+    }
+</table>

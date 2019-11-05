@@ -1,0 +1,60 @@
+﻿@page
+@model MyScriptureJournal.Pages.References.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference[0].ReferenceID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference[0].ChapterAndVerse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference[0].SpiritualNotes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference[0].City)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Reference) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChapterAndVerse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpiritualNotes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ReferenceID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ReferenceID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ReferenceID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
